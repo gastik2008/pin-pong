@@ -7,9 +7,9 @@ display.set_caption("Pygame window")
 background = transform.scale(image.load("fon.jpg"), (win_wigth, win_height))
 FPS = 60
 clock = time.Clock()
-#mixer.init()
-#mixer.music.load('')
-#mixer.music.play()
+mixer.init()
+mixer.music.load('fon.mp3')
+mixer.music.play()
 
 class GameSprite(sprite.Sprite):
     def __init__ (self, player_image, player_x, player_y, player_wigth, player_height, player_speed):
@@ -47,8 +47,8 @@ lont1 = font1.render('КРАСНЫЙ ПРОИГРАЛ!', True, (180, 0, 0))
 lont2 = font1.render('СИНИЙ ПРОИГРАЛ!', True, (180, 0, 0))
 
 
-speed_x = 5
-speed_y = 5
+speed_x = 4
+speed_y = 4
 
 finish = False
 game = True
