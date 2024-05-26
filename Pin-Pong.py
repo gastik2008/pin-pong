@@ -1,6 +1,5 @@
 from pygame import *
 
-
 win_wigth = 700
 win_height = 500
 window = display.set_mode((win_wigth, win_height))
@@ -38,13 +37,18 @@ class Player(GameSprite):
         if keys[K_s] and self.rect.y < win_wigth - 85:
             self.rect.y += self.speed
 
-left_player = Player("red.jpg", 5, 180, 15 , 100, 4)
-right_player = Player("blue.png", 680, 180, 15, 100, 4)
+left_player = Player("red.jpg", 5, 180, 15 , 100, 6)
+right_player = Player("blue.png", 680, 180, 15, 100, 6)
+boll = GameSprite("boll.png", 300, 195, 85, 85, 6)
+
+font.init()
+font1 = font.Font(None, 35)
+lont1 = font1.render('КРАСНЫЙ ПРОИГРАЛ!', True, (180, 0, 0))
+lont2 = font1.render('СИНИЙ ПРОИГРАЛ!', True, (180, 0, 0))
 
 
-#class Enemy(GameSprite): 
-
-
+speed_x = 5
+speed_y = 5
 
 finish = False
 game = True
@@ -54,9 +58,23 @@ while game:
             game = False
     if finish != True:
         window.blit(background,(0, 0))
+        boll.update()
         left_player.update2()
         right_player.update1()
         left_player.reset()
         right_player.reset()
-        display.update()
+        boll.reset()
+        boll.rect.x += speed_x
+        boll.rect.y += speed_y
+    if boll.rect.y > win_height-50 or boll.rect.y < 0:
+        speed_y *= -1
+    if sprite.collide_rect(right_player, boll) or sprite.collide_rect(left_player, boll):
+        speed_x *= -1
+    if boll.rect.x < -20:
+        finish = True
+        window.blit(lont1, (200, 200))
+    if boll.rect.x > win_wigth:
+        finish = True
+        window.blit(lont2, (200, 200))
+    display.update()
     clock.tick(FPS)
